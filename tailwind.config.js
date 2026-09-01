@@ -1,0 +1,71 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        canvas: '#F7F8FC',
+        surface: '#FFFFFF',
+        'surface-alt': '#F4F6FA',
+        border: '#E5E7EB',
+        'border-hover': '#D1D5DB',
+        text: '#111827',
+        'text-2': '#6B7280',
+        'text-3': '#9CA3AF',
+        brand: '#5455E7',
+        'brand-hover': '#4344D0',
+        'brand-light': '#EEF2FF',
+        cyan: '#16B8C8',
+        'cyan-light': '#ECFEFF',
+        deep: '#0B1020',
+        'deep-2': '#111827',
+        'deep-border': '#1E2D4A',
+        success: '#059669',
+        warning: '#D97706',
+        danger: '#DC2626',
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+      },
+      borderRadius: {
+        'xl': '12px',
+        '2xl': '16px',
+        '3xl': '20px',
+      },
+      boxShadow: {
+        'sm': '0 1px 2px rgba(17, 24, 39, 0.04)',
+        'md': '0 1px 3px rgba(17, 24, 39, 0.06), 0 1px 2px rgba(17, 24, 39, 0.03)',
+        'lg': '0 4px 16px rgba(17, 24, 39, 0.07), 0 1px 4px rgba(17, 24, 39, 0.04)',
+        'xl': '0 8px 32px rgba(17, 24, 39, 0.10), 0 2px 8px rgba(17, 24, 39, 0.05)',
+        'deep': '0 8px 32px rgba(11, 16, 32, 0.5)',
+      },
+      fontSize: {
+        '2xs': ['10px', '14px'],
+        'xs': ['11px', '16px'],
+        'sm': ['12px', '18px'],
+        'base': ['14px', '20px'],
+        'md': ['15px', '22px'],
+        'lg': ['16px', '24px'],
+        'xl': ['18px', '26px'],
+        '2xl': ['20px', '28px'],
+        '3xl': ['24px', '32px'],
+        '4xl': ['28px', '36px'],
+      },
+      spacing: {
+        '18': '4.5rem',
+        '72': '18rem',
+        '84': '21rem',
+        '96': '24rem',
+      },
+      animation: {
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'spin-slow': 'spin 4s linear infinite',
+      },
+    },
+  },
+  plugins: [],
+}

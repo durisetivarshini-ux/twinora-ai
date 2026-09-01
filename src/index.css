@@ -1,0 +1,384 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --canvas: #F4F5F9;
+    --surface: #FFFFFF;
+    --surface-alt: #F8F9FC;
+    --border: #E4E7ED;
+    --border-hover: #CDD1DC;
+    --text: #0E1117;
+    --text-2: #5C6370;
+    --text-3: #9BA3B0;
+    --brand: #4F52E8;
+    --brand-hover: #3E41CC;
+    --brand-light: #EEF0FF;
+    --brand-dim: rgba(79,82,232,0.08);
+    --cyan: #12B5C6;
+    --cyan-light: #E8FBFD;
+    --deep: #080E1C;
+    --deep-2: #0F1929;
+    --deep-3: #162035;
+    --deep-border: #1F3050;
+    --deep-text: #E8ECF2;
+    --deep-text-2: #7B93B0;
+    --success: #05875F;
+    --success-light: #EDFAF5;
+    --warning: #C97308;
+    --warning-light: #FEF8EC;
+    --danger: #D92E2E;
+    --danger-light: #FEF1F1;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--canvas);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'cv01', 'cv02', 'cv03', 'cv04', 'ss01';
+    letter-spacing: -0.01em;
+    line-height: 1.5;
+  }
+
+  /* Subtle technical canvas texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(79, 82, 232, 0.035) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  h1 { font-weight: 700; letter-spacing: -0.028em; line-height: 1.1; }
+  h2 { font-weight: 600; letter-spacing: -0.020em; line-height: 1.2; }
+  h3 { font-weight: 600; letter-spacing: -0.015em; line-height: 1.25; }
+  h4 { font-weight: 550; letter-spacing: -0.010em; }
+  p  { line-height: 1.6; }
+
+  .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+
+  ::selection { background: #C7CAFF; color: #1A1D6B; }
+}
+
+@layer components {
+
+  /* ─── CANVAS LAYER ─── */
+  .page-canvas {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── SURFACES ─── */
+  .panel {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(14, 17, 23, 0.04), 0 1px 2px rgba(14, 17, 23, 0.02);
+    transition: box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .panel:hover {
+    box-shadow: 0 2px 8px rgba(14, 17, 23, 0.06), 0 1px 3px rgba(14, 17, 23, 0.03);
+  }
+
+  .panel-flat {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  /* Deep intelligence surface — only where Twinora actively computes */
+  .panel-deep {
+    background: var(--deep);
+    border: 1px solid var(--deep-border);
+    border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(8, 14, 28, 0.4), 0 2px 8px rgba(8, 14, 28, 0.2);
+  }
+  .panel-deep-2 {
+    background: var(--deep-2);
+    border: 1px solid var(--deep-border);
+    border-radius: 10px;
+  }
+  .panel-deep-3 {
+    background: var(--deep-3);
+    border: 1px solid rgba(31, 48, 80, 0.8);
+    border-radius: 8px;
+  }
+
+  /* ─── BUTTONS — Full state machine ─── */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 select-none cursor-pointer;
+    background: var(--brand);
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 13.5px;
+    padding: 0 16px;
+    height: 36px;
+    border-radius: 9px;
+    border: none;
+    box-shadow: 0 1px 2px rgba(79, 82, 232, 0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+    transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.06), transparent);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  .btn-primary:hover { background: var(--brand-hover); box-shadow: 0 4px 12px rgba(79, 82, 232, 0.35), inset 0 1px 0 rgba(255,255,255,0.08); transform: translateY(-1px); }
+  .btn-primary:active { transform: scale(0.97); box-shadow: 0 1px 3px rgba(79, 82, 232, 0.25); }
+  .btn-primary:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+  .btn-primary:disabled { opacity: 0.45; pointer-events: none; }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 select-none cursor-pointer;
+    background: #FFFFFF;
+    color: #374151;
+    font-weight: 500;
+    font-size: 13.5px;
+    padding: 0 14px;
+    height: 36px;
+    border-radius: 9px;
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 2px rgba(14, 17, 23, 0.04);
+    transition: all 0.15s ease;
+  }
+  .btn-secondary:hover { background: #F8F9FC; border-color: var(--border-hover); box-shadow: 0 2px 6px rgba(14, 17, 23, 0.06); transform: translateY(-0.5px); }
+  .btn-secondary:active { transform: scale(0.98); background: #F0F2F7; }
+  .btn-secondary:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+  .btn-secondary:disabled { opacity: 0.4; pointer-events: none; }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-1.5 select-none cursor-pointer;
+    background: transparent;
+    color: var(--text-2);
+    font-weight: 500;
+    font-size: 13px;
+    padding: 0 10px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    transition: all 0.12s ease;
+  }
+  .btn-ghost:hover { background: rgba(14, 17, 23, 0.05); color: var(--text); }
+  .btn-ghost:active { background: rgba(14, 17, 23, 0.08); transform: scale(0.98); }
+  .btn-ghost:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+  /* Arrow link — tertiary */
+  .btn-link {
+    @apply inline-flex items-center gap-1 font-semibold;
+    color: var(--brand);
+    font-size: 12.5px;
+    transition: gap 0.15s ease, opacity 0.12s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-link:hover { gap: 6px; }
+  .btn-link:hover svg { transform: translateX(2px); }
+  .btn-link svg { transition: transform 0.15s ease; }
+
+  /* ─── TYPOGRAPHY ─── */
+  .page-title {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+  }
+  .page-subtitle {
+    font-size: 13px;
+    color: var(--text-3);
+    font-weight: 400;
+    margin-top: 3px;
+    line-height: 1.5;
+  }
+  .section-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--text-3);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  /* ─── BADGES ─── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge-brand  { background: var(--brand-light); color: var(--brand); }
+  .badge-success { background: var(--success-light); color: var(--success); }
+  .badge-warning { background: var(--warning-light); color: var(--warning); }
+  .badge-danger  { background: var(--danger-light); color: var(--danger); }
+  .badge-cyan    { background: var(--cyan-light); color: #086B78; }
+  .badge-neutral { background: #F0F2F7; color: #5C6370; }
+  .badge-deep    { background: rgba(255,255,255,0.1); color: var(--deep-text); border: 1px solid rgba(255,255,255,0.1); }
+
+  /* ─── TRENDS ─── */
+  .trend-up   { display: inline-flex; align-items: center; gap: 3px; color: var(--success); font-size: 12px; font-weight: 600; }
+  .trend-down { display: inline-flex; align-items: center; gap: 3px; color: var(--danger);  font-size: 12px; font-weight: 600; }
+  .trend-neutral { display: inline-flex; align-items: center; gap: 3px; color: var(--text-3); font-size: 12px; font-weight: 600; }
+
+  /* ─── INPUT ─── */
+  .input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    font-size: 13.5px;
+    color: var(--text);
+    font-weight: 500;
+    background: #FFFFFF;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    font-family: inherit;
+    outline: none;
+  }
+  .input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(79, 82, 232, 0.1); }
+  .input::placeholder { color: var(--text-3); font-weight: 400; }
+  .input:disabled { background: #F8F9FC; color: var(--text-3); cursor: not-allowed; }
+
+  /* ─── DIVIDER ─── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #CDD1DC; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #9BA3B0; }
+
+/* ─── ANIMATIONS ─── */
+
+/* Intelligence pulse on nodes */
+@keyframes twin-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+.twin-pulse { animation: twin-pulse 2.8s ease-in-out infinite; }
+
+/* Data particle flowing along path */
+@keyframes flow-particle {
+  0%   { offset-distance: 0%;   opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+.flow-particle { animation: flow-particle 2.4s ease-in-out infinite; }
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #E4E7ED 25%, #F0F2F7 50%, #E4E7ED 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+
+/* Fade up entrance */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fade-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.fade-up-delay-1 { animation-delay: 0.06s; opacity: 0; }
+.fade-up-delay-2 { animation-delay: 0.12s; opacity: 0; }
+.fade-up-delay-3 { animation-delay: 0.18s; opacity: 0; }
+.fade-up-delay-4 { animation-delay: 0.24s; opacity: 0; }
+
+/* Slide in from right */
+@keyframes slide-right {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+.drawer-in { animation: slide-right 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+/* Number counter */
+@keyframes count-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.count-in { animation: count-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+/* Stage progress appear */
+@keyframes stage-appear {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.stage-appear { animation: stage-appear 0.25s ease forwards; }
+
+/* Scan line (intelligence processing) */
+@keyframes scan-line {
+  0%   { top: 0%; opacity: 0.6; }
+  100% { top: 100%; opacity: 0; }
+}
+.scan-line {
+  position: absolute;
+  left: 0; right: 0; height: 1px;
+  background: linear-gradient(to right, transparent, var(--cyan), transparent);
+  animation: scan-line 2s linear infinite;
+  pointer-events: none;
+}
+
+/* Ping dot */
+@keyframes ping-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.6); opacity: 0.5; }
+}
+.ping-dot { animation: ping-dot 2s ease-in-out infinite; }
+
+/* Agent flow particle */
+@keyframes agent-particle {
+  0%   { left: 0%; opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+.agent-particle { animation: agent-particle 2s ease-in-out infinite; }
+
+/* Chart annotation pop */
+@keyframes annotation-pop {
+  from { opacity: 0; transform: scale(0.85) translateY(4px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.annotation-pop { animation: annotation-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+/* ─── INTELLIGENCE FLOW LINES ─── */
+.intel-line {
+  stroke: var(--border);
+  stroke-width: 1;
+  fill: none;
+  stroke-dasharray: 4 3;
+  transition: stroke 0.3s ease;
+}
+.intel-line.active {
+  stroke: var(--brand);
+  stroke-dasharray: 4 3;
+  animation: dash-flow 1.5s linear infinite;
+}
+@keyframes dash-flow {
+  to { stroke-dashoffset: -14; }
+}
