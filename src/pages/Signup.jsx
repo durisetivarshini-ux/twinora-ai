@@ -121,13 +121,25 @@ export default function Signup() {
     setErrors({});
     
     try {
-      await signup(formData.fullName, formData.businessName, formData.email, formData.password);
+      if (typeof signup === 'function') {
+        await signup(formData.fullName, formData.businessName, formData.email, formData.password);
+      } else {
+        const res = await apiService.signup(formData.fullName, formData.businessName, formData.email, formData.password);
+        if (res?.token) {
+          localStorage.setItem('twinora_token', res.token);
+          if (res.user) localStorage.setItem('twinora_user', JSON.stringify(res.user));
+          if (res.merchant) localStorage.setItem('twinora_merchant', JSON.stringify(res.merchant));
+        }
+      }
       
       setIsSuccess(true);
       for (let i = 0; i < successMessages.length; i++) {
         setSuccessStage(i);
         await new Promise(r => setTimeout(r, i === successMessages.length - 1 ? 400 : 900));
       }
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 700);
     } catch (err) {
       setLoading(false);
       if (err.message.toLowerCase().includes('email') || err.message.toLowerCase().includes('exist')) {
