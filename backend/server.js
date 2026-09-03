@@ -34,17 +34,50 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
 const SUPABASE_URL = process.env.SUPABASE_URL || '';
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
+// Safe startup validation (never log secrets)
+if (!SUPABASE_URL) {
+  console.warn('[Startup] Notice: SUPABASE_URL is not set. Backend will use in-memory business dataset.');
+}
+if (!SUPABASE_SERVICE_ROLE_KEY) {
+  console.warn('[Startup] Notice: SUPABASE_SERVICE_ROLE_KEY is not set.');
+}
+if (!GEMINI_API_KEY) {
+  console.warn('[Startup] Notice: GEMINI_API_KEY is not set. Ask Twinora will use grounded deterministic engine.');
+}
+
 export const supabaseServer = (SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY)
   ? createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
       auth: { persistSession: false, autoRefreshToken: false }
     })
   : null;
 
+// CORS configuration for Vercel production and local testing
+const allowedOrigins = [
+  'https://twinora-ai.vercel.app',
+  'http://localhost:5173',
+  'http://localhost:3000',
+  process.env.FRONTEND_URL
+].filter(Boolean);
+
 app.use(cors({
-  origin: (origin, callback) => callback(null, true),
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.vercel.app') || origin.includes('localhost')) {
+      return callback(null, true);
+    }
+    return callback(null, true); // Permissive for production deployment
+  },
   credentials: true
 }));
+
 app.use(express.json({ limit: '10mb' }));
+
+// Safe Health Check
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    service: 'twinora-backend'
+  });
+});
 
 // Auth Middleware: extracts authenticated user and merchant
 function authenticateUser(req, res, next) {

@@ -1,10 +1,7 @@
 // Grounded AI & Business Decision Intelligence Service for Twinora AI
 // Connects to authenticated backend Gemini explanation layer
 
-const API_BASE = (import.meta.env && import.meta.env.VITE_API_URL) || 
-  (typeof window !== 'undefined' && window.location.hostname !== 'localhost' 
-    ? 'https://twinora-backend.onrender.com/api' 
-    : 'http://localhost:5000/api');
+import { API_BASE } from '../config/api';
 
 function getAuthHeader() {
   const token = localStorage.getItem('twinora_token') || 'jwt-token-usr-alex-01';
