@@ -86,7 +86,7 @@ export default function Actions() {
       setOverview(ov);
       if (p?.scheduledTime) setEditSchedule(p.scheduledTime);
       if (p?.targetCount) setEditTargetCount(p.targetCount);
-      if (p?.status === 'APPROVED' || p?.status === 'EXECUTED') {
+      if (p?.status === 'APPROVED' || p?.status === 'EXECUTED' || p?.status === 'DISPATCHED' || localStorage.getItem('twinora_action_approved') === 'true') {
         setIsApproved(true);
       }
       setLoading(false);
@@ -114,6 +114,7 @@ export default function Actions() {
 
     setExecuting(false);
     setIsApproved(true);
+    localStorage.setItem('twinora_action_approved', 'true');
     confetti({ particleCount: 85, spread: 65, origin: { y: 0.6 } });
   };
 

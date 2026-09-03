@@ -318,36 +318,13 @@ export async function loginUser(email, password) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
     });
-    if (res.ok) return await res.json();
-    const errData = await res.json().catch(() => ({}));
-    if (errData.error) return errData;
+    const data = await res.json().catch(() => ({}));
+    if (res.ok) return data;
+    if (data.error) return data;
+    return { error: `Authentication failed (${res.status})` };
   } catch (err) {
-    console.warn('[API Service] Backend login failed, using demo session:', err.message);
+    return { error: 'Unable to reach authentication server. Please check your network connection.' };
   }
-
-  // Graceful fallback session for demo/offline resilience
-  const demoUserId = 'usr-alex-01';
-  return {
-    token: `jwt-token-${demoUserId}`,
-    user: {
-      id: demoUserId,
-      fullName: 'Alex Vance',
-      email: email || 'alex@novacart.com',
-      role: 'Store Owner',
-      businessName: 'NovaCart Electronics',
-      businessCategory: 'Retail & E-commerce',
-      location: 'San Francisco, CA',
-      timezone: 'America/Los_Angeles'
-    },
-    merchant: {
-      id: 'mch-alex-01',
-      userId: demoUserId,
-      businessName: 'NovaCart Electronics',
-      businessCategory: 'Retail & E-commerce',
-      currency: '₹',
-      targetMonthlyRevenue: 1050000
-    }
-  };
 }
 
 export async function signupUser(fullName, businessName, email, password) {
@@ -357,35 +334,13 @@ export async function signupUser(fullName, businessName, email, password) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ fullName, businessName, email, password })
     });
-    if (res.ok) return await res.json();
-    const errData = await res.json().catch(() => ({}));
-    if (errData.error) return errData;
+    const data = await res.json().catch(() => ({}));
+    if (res.ok) return data;
+    if (data.error) return data;
+    return { error: `Registration failed (${res.status})` };
   } catch (err) {
-    console.warn('[API Service] Backend signup failed, using local session:', err.message);
+    return { error: 'Unable to reach authentication server. Please check your network connection.' };
   }
-
-  const newId = `usr-${Date.now()}`;
-  return {
-    token: `jwt-token-${newId}`,
-    user: {
-      id: newId,
-      fullName: fullName || 'Store Operator',
-      email: email || 'operator@business.com',
-      role: 'Store Owner',
-      businessName: businessName || 'My Business',
-      businessCategory: 'Retail & E-commerce',
-      location: 'San Francisco, CA',
-      timezone: 'America/Los_Angeles'
-    },
-    merchant: {
-      id: `mch-${Date.now()}`,
-      userId: newId,
-      businessName: businessName || 'My Business',
-      businessCategory: 'Retail & E-commerce',
-      currency: '₹',
-      targetMonthlyRevenue: 1050000
-    }
-  };
 }
 
 export const registerUser = signupUser;

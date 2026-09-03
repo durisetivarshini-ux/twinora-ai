@@ -9,70 +9,26 @@ function getAuthHeader() {
 }
 
 export async function askTwinora(question, pageContext = 'dashboard', dateRange = '30d', selectedEntity = null) {
-  try {
-    const res = await fetch(`${API_BASE}/ai/ask`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...getAuthHeader()
-      },
-      body: JSON.stringify({
-        question,
-        pageContext,
-        dateRange,
-        selectedEntity
-      })
-    });
+  const res = await fetch(`${API_BASE}/ai/ask`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...getAuthHeader()
+    },
+    body: JSON.stringify({
+      question,
+      pageContext,
+      dateRange,
+      selectedEntity
+    })
+  });
 
-    if (res.ok) {
-      return await res.json();
-    }
-  } catch (err) {
-    console.warn('[Twinora AI] Backend request failed, utilizing local grounded fallback:', err);
+  if (!res.ok) {
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(errData.error || `AI explanation request failed (${res.status})`);
   }
 
-  // Graceful deterministic fallback if network is offline
-  return {
-    geminiAvailable: false,
-    title: "Retention & Repeat Velocity Analysis",
-    summary: "Revenue is currently below target primarily because repeat purchasing slowed down among 32 inactive high-value accounts.",
-    insights: [
-      { title: "Repeat Velocity", value: "34%", type: "negative" },
-      { title: "Target Deficit", value: "19.8%", type: "negative" }
-    ],
-    evidence: [
-      { metric: "Revenue", current: "₹8.42L", previous: "₹10.50L", change: "-19.8%" },
-      { metric: "Dormant VIPs", current: "32 accounts", previous: "0", change: "+8" },
-      { metric: "Identified Recovery", current: "₹28,400", previous: "Baseline", change: "+₹28.4K" }
-    ],
-    trace: {
-      question: question || "Why did revenue decrease?",
-      signalsChecked: ["Monthly Revenue", "Customer Inactivity Matrix", "Repeat Purchase Velocity", "Cohort LTV"],
-      strongestSignal: "Dormant VIP Inactivity Duration",
-      interpretation: "High-value customer accounts passing the 32-day repurchase cycle without ordering.",
-      recommendation: "Test a 15% comeback incentive in Simulation Lab."
-    },
-    reasoningMap: [
-      { step: "1", label: "User Query", detail: question, status: "checked" },
-      { step: "2", label: "Signal Inspection", detail: "Dormant VIP Inactivity Duration", status: "checked" },
-      { step: "3", label: "Evidence Correlation", detail: "Checked Customer RFM Matrix", status: "checked" },
-      { step: "4", label: "Action Synthesis", detail: "Formulated recovery campaign", status: "active" }
-    ],
-    recommendedAction: "Test a 15% targeted comeback incentive in Simulation Lab.",
-    nextAction: {
-      type: "navigate",
-      label: "Simulate 15% Comeback",
-      route: "/simulate"
-    },
-    methodology: {
-      metricsUsed: "3,126 analyzed transactions across 948 customer profiles",
-      comparisonPeriod: `${dateRange} window vs target`,
-      dataFreshness: new Date().toISOString(),
-      assumptions: "Dormancy threshold of 45 days on historical 32-day cycle",
-      calculationSource: "Deterministic In-Memory Business Intelligence Engine"
-    },
-    dataFreshness: "Live Telemetry"
-  };
+  return await res.json();
 }
 
 export async function getDailyBrief() {
