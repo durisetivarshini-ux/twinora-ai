@@ -28,7 +28,7 @@ export function getBusinessOverview(merchantId = 'mch-alex-01', dateRange = '30d
 
   const totalRevenue = rangeOrders.reduce((sum, o) => sum + (o.total || 0), 0);
   const targetRevenue = merchant.targetMonthlyRevenue || 1000000;
-  const revenueChangePct = targetRevenue > 0 
+  const revenueChangePct = targetRevenue > 0
     ? parseFloat((((totalRevenue - targetRevenue) / targetRevenue) * 100).toFixed(1))
     : 0;
 
@@ -42,8 +42,8 @@ export function getBusinessOverview(merchantId = 'mch-alex-01', dateRange = '30d
 
   // Payment health: successful payments percentage
   const successfulPayments = payments.filter(p => p.status === 'SUCCESS').length;
-  const paymentHealthRate = payments.length > 0 
-    ? parseFloat(((successfulPayments / payments.length) * 100).toFixed(1)) 
+  const paymentHealthRate = payments.length > 0
+    ? parseFloat(((successfulPayments / payments.length) * 100).toFixed(1))
     : 99.4;
 
   // Growth score calculated from revenue realization + repeat rate
@@ -96,7 +96,7 @@ export function getRevenueMetrics(merchantId = 'mch-alex-01', dateRange = '30d')
     aov: overview.aov,
     ordersCount: overview.totalOrdersCount,
     timeseries,
-    narrative: overview.revenueChangePct < 0 
+    narrative: overview.revenueChangePct < 0
       ? `Revenue is currently ${Math.abs(overview.revenueChangePct)}% below target due to repeat purchasing slowdown in inactive accounts.`
       : `Revenue is performing ${overview.revenueChangePct}% ahead of baseline with strong order frequency.`
   };
@@ -111,9 +111,9 @@ export function getCustomerSegments(merchantId = 'mch-alex-01') {
 
   const cohorts = [
     { id: 'champions', key: 'Champions', label: 'Champions', color: '#4F52E8', churn: 4, risk: 'low', desc: 'Highest frequency and top AOV tier' },
-    { id: 'loyal',     key: 'Loyal',     label: 'Loyal',     color: '#05875F', churn: 8, risk: 'low', desc: 'Consistent repeat purchasers within 30 days' },
-    { id: 'at-risk',   key: 'At-Risk',   label: 'At-Risk',   color: '#C97308', churn: 42, risk: 'medium', desc: 'Exceeded typical repurchase cycle by 15+ days' },
-    { id: 'dormant',   key: 'Dormant',   label: 'Dormant',   color: '#D92E2E', churn: 84, risk: 'high', desc: 'High past spend, no activity for 45+ days' }
+    { id: 'loyal', key: 'Loyal', label: 'Loyal', color: '#05875F', churn: 8, risk: 'low', desc: 'Consistent repeat purchasers within 30 days' },
+    { id: 'at-risk', key: 'At-Risk', label: 'At-Risk', color: '#C97308', churn: 42, risk: 'medium', desc: 'Exceeded typical repurchase cycle by 15+ days' },
+    { id: 'dormant', key: 'Dormant', label: 'Dormant', color: '#D92E2E', churn: 84, risk: 'high', desc: 'High past spend, no activity for 45+ days' }
   ];
 
   return cohorts.map((ch, idx) => {
@@ -221,7 +221,7 @@ export function getSimulationResult(merchantId = 'mch-alex-01', { discountPct = 
   const merchant = getResolvedMerchant(merchantId);
   const overview = getBusinessOverview(merchant.id, '30d');
   const customers = db.customers.filter(c => c.merchantId === merchant.id);
-  
+
   const targetCohortMembers = targetSegment === 'inactive' || targetSegment === 'dormant'
     ? customers.filter(c => c.segment === 'Dormant')
     : targetSegment === 'vip' || targetSegment === 'champions'
@@ -229,7 +229,7 @@ export function getSimulationResult(merchantId = 'mch-alex-01', { discountPct = 
       : customers;
 
   const cohortCount = targetCohortMembers.length || 32;
-  const baseAov = targetCohortMembers.length > 0 
+  const baseAov = targetCohortMembers.length > 0
     ? Math.round(targetCohortMembers.reduce((s, c) => s + c.avgOrderValue, 0) / targetCohortMembers.length)
     : overview.aov || 1800;
 

@@ -115,11 +115,10 @@ export default function Analytics() {
               <button
                 key={chip.id}
                 onClick={() => setDateRange(chip.id)}
-                className={`px-3 py-1 rounded-lg font-semibold transition-all ${
-                  dateRange === chip.id
+                className={`px-3 py-1 rounded-lg font-semibold transition-all ${dateRange === chip.id
                     ? 'bg-[#4F52E8] text-white shadow-sm'
                     : 'text-[#5C6370] hover:text-[#0E1117] hover:bg-[#F8F9FC]'
-                }`}
+                  }`}
               >
                 {chip.label}
               </button>
@@ -196,7 +195,7 @@ export default function Analytics() {
               <CartesianGrid strokeDasharray="3 3" stroke="#F0F2F7" vertical={false} />
               <XAxis dataKey="date" tick={{ fontSize: 10, fill: '#9BA3B0' }} tickLine={false} axisLine={false} interval={3} />
               <YAxis tick={{ fontSize: 10, fill: '#9BA3B0' }} tickLine={false} axisLine={false}
-                tickFormatter={v => `₹${(v/1000).toFixed(0)}K`} />
+                tickFormatter={v => `₹${(v / 1000).toFixed(0)}K`} />
               <Tooltip content={<CustomTooltip />} />
               <ReferenceLine x={anomalyDay?.date} stroke="#D92E2E" strokeDasharray="3 2" strokeWidth={1.5} />
               <ReferenceLine x={recoveryDay?.date} stroke="#05875F" strokeDasharray="3 2" strokeWidth={1.5} />

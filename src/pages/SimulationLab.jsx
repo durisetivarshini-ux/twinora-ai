@@ -80,12 +80,12 @@ const PREVIEW_NODES = [
 
 const PREVIEW_LINKS = [
   { from: 'customers', to: 'retention', isMainPath: true },
-  { from: 'retention', to: 'revenue',   isMainPath: true },
-  { from: 'revenue',   to: 'growth',    isMainPath: false },
-  { from: 'growth',    to: 'products',  isMainPath: false },
-  { from: 'products',  to: 'payments',  isMainPath: false },
-  { from: 'payments',  to: 'customers', isMainPath: false },
-  { from: 'customers', to: 'revenue',   isMainPath: true, curved: true },
+  { from: 'retention', to: 'revenue', isMainPath: true },
+  { from: 'revenue', to: 'growth', isMainPath: false },
+  { from: 'growth', to: 'products', isMainPath: false },
+  { from: 'products', to: 'payments', isMainPath: false },
+  { from: 'payments', to: 'customers', isMainPath: false },
+  { from: 'customers', to: 'revenue', isMainPath: true, curved: true },
 ];
 
 function buildCurve(a, b, curved) {
@@ -184,7 +184,7 @@ export default function SimulationLab() {
       setCohorts(segs);
       setOverview(ov);
       setDecisionMemory(dm);
-    }).catch(() => {});
+    }).catch(() => { });
   }, [dateRange]);
 
   useEffect(() => {
@@ -232,7 +232,7 @@ export default function SimulationLab() {
 
   return (
     <div className="page-canvas space-y-6 max-w-[1100px] font-sans">
-      
+
       {/* Header with Mode Toggle */}
       <div className="fade-up flex flex-col sm:flex-row sm:items-start justify-between gap-4">
         <div>
@@ -246,21 +246,19 @@ export default function SimulationLab() {
           <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-[#E4E7ED] shadow-xs text-[12px]">
             <button
               onClick={() => setMode('single')}
-              className={`px-3 py-1 rounded-lg font-semibold transition-all ${
-                mode === 'single'
+              className={`px-3 py-1 rounded-lg font-semibold transition-all ${mode === 'single'
                   ? 'bg-[#4F52E8] text-white shadow-xs'
                   : 'text-[#5C6370] hover:text-[#0E1117]'
-              }`}
+                }`}
             >
               Scenario Sandbox
             </button>
             <button
               onClick={() => setMode('compare')}
-              className={`px-3 py-1 rounded-lg font-semibold transition-all flex items-center gap-1.5 ${
-                mode === 'compare'
+              className={`px-3 py-1 rounded-lg font-semibold transition-all flex items-center gap-1.5 ${mode === 'compare'
                   ? 'bg-[#4F52E8] text-white shadow-xs'
                   : 'text-[#5C6370] hover:text-[#0E1117]'
-              }`}
+                }`}
             >
               <Scale className="w-3.5 h-3.5" />
               <span>Compare Strategies</span>
@@ -276,7 +274,7 @@ export default function SimulationLab() {
       {/* ── MODE 1: STRATEGY COMPARE MATRIX ── */}
       {mode === 'compare' && (
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
-          
+
           {/* Twinora Strategy Trade-off Synthesis */}
           <div className="panel-deep p-5 rounded-2xl text-white space-y-2 relative overflow-hidden">
             <div className="scan-line" />
@@ -300,9 +298,8 @@ export default function SimulationLab() {
             {STRATEGIES_COMPARE.map((strat) => (
               <div
                 key={strat.id}
-                className={`panel p-5 flex flex-col justify-between transition-all relative ${
-                  strat.recommended ? 'border-2 border-[#4F52E8] shadow-md shadow-[#4F52E8]/10' : ''
-                }`}
+                className={`panel p-5 flex flex-col justify-between transition-all relative ${strat.recommended ? 'border-2 border-[#4F52E8] shadow-md shadow-[#4F52E8]/10' : ''
+                  }`}
               >
                 {strat.recommended && (
                   <span className="absolute -top-2.5 right-4 bg-[#4F52E8] text-white text-[9.5px] font-extrabold uppercase px-2.5 py-0.5 rounded-full shadow-xs">
@@ -353,11 +350,10 @@ export default function SimulationLab() {
                         setMode('single');
                         handleRun(strat.presetDiscount);
                       }}
-                      className={`w-full !h-9 text-[12px] rounded-xl font-bold flex items-center justify-center gap-1.5 transition-all ${
-                        strat.recommended
+                      className={`w-full !h-9 text-[12px] rounded-xl font-bold flex items-center justify-center gap-1.5 transition-all ${strat.recommended
                           ? 'btn-primary'
                           : 'btn-secondary'
-                      }`}
+                        }`}
                     >
                       <span>Simulate in Sandbox</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -375,7 +371,7 @@ export default function SimulationLab() {
       {/* ── MODE 2: SINGLE SCENARIO DECISION LAB ── */}
       {mode === 'single' && (
         <div className="fade-up fade-up-delay-1 grid lg:grid-cols-[340px_1fr] gap-4">
-          
+
           {/* Controls Panel */}
           <div className="panel p-5 space-y-5 h-fit">
             <div>
@@ -435,11 +431,10 @@ export default function SimulationLab() {
                   <button
                     key={d}
                     onClick={() => setHorizon(d)}
-                    className={`py-1.5 rounded-lg font-semibold border transition-all ${
-                      horizon === d
+                    className={`py-1.5 rounded-lg font-semibold border transition-all ${horizon === d
                         ? 'bg-[#EEF0FF] text-[#4F52E8] border-[#4F52E8]'
                         : 'bg-white text-[#5C6370] border-[#E4E7ED] hover:bg-[#F8F9FC]'
-                    }`}
+                      }`}
                   >
                     {d} Days
                   </button>
@@ -469,7 +464,7 @@ export default function SimulationLab() {
 
           {/* Main Visualization & Result Canvas */}
           <div className="space-y-4">
-            
+
             {/* 1. Decision Preview Living Mesh (when not simulated or during setup) */}
             {!running && !result && (
               <motion.div
@@ -568,7 +563,7 @@ export default function SimulationLab() {
             {/* 2. Simulation Results Panel (after execution) */}
             {result && (
               <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} className="space-y-4">
-                
+
                 {/* Result Summary Strip */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="panel p-5 space-y-3">

@@ -15,13 +15,12 @@ function CauseFlow({ steps, activeIdx = steps.length - 1 }) {
     <div className="flex items-center gap-1 flex-wrap">
       {steps.map((step, i) => (
         <React.Fragment key={step}>
-          <span className={`px-2 py-0.5 rounded text-[10.5px] font-semibold border transition-all ${
-            i === activeIdx
+          <span className={`px-2 py-0.5 rounded text-[10.5px] font-semibold border transition-all ${i === activeIdx
               ? 'bg-[#4F52E8]/10 border-[#4F52E8]/30 text-[#4F52E8]'
               : i < activeIdx
                 ? 'bg-[#162035] border-[#1F3050] text-[#7B93B0]'
                 : 'bg-transparent border-[#1F3050] text-[#3A4F6A]'
-          }`}>
+            }`}>
             {step}
           </span>
           {i < steps.length - 1 && (
@@ -298,7 +297,7 @@ export default function Dashboard() {
                   <p className="text-[11.5px] text-[#9BA3B0] mt-0.5">{opp.category}</p>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="text-[13px] font-bold text-[#05875F]">+₹{(opp.potentialRevenue/1000).toFixed(1)}K</p>
+                  <p className="text-[13px] font-bold text-[#05875F]">+₹{(opp.potentialRevenue / 1000).toFixed(1)}K</p>
                 </div>
               </div>
             ))}

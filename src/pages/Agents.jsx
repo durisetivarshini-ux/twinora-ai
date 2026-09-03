@@ -13,9 +13,9 @@ const AGENT_META = {
 
 const STATUS = {
   completed: { label: 'Completed', color: '#05875F', dot: '#05875F' },
-  running:   { label: 'Running',   color: '#4F52E8', dot: '#4F52E8' },
-  ready:     { label: 'Ready',     color: '#9BA3B0', dot: '#9BA3B0' },
-  idle:      { label: 'Idle',      color: '#C97308', dot: '#C97308' },
+  running: { label: 'Running', color: '#4F52E8', dot: '#4F52E8' },
+  ready: { label: 'Ready', color: '#9BA3B0', dot: '#9BA3B0' },
+  idle: { label: 'Idle', color: '#C97308', dot: '#C97308' },
 };
 
 export default function Agents() {
@@ -97,11 +97,10 @@ export default function Agents() {
               <div key={agent.id} className="flex-1 flex flex-col items-center relative">
                 <button
                   onClick={() => setSelected(isSelected ? null : agent)}
-                  className={`w-10 h-10 rounded-xl z-10 flex items-center justify-center transition-all mb-3 ${
-                    isSelected
+                  className={`w-10 h-10 rounded-xl z-10 flex items-center justify-center transition-all mb-3 ${isSelected
                       ? 'ring-2 ring-white ring-offset-2 ring-offset-[#080E1C]'
                       : 'hover:scale-110'
-                  }`}
+                    }`}
                   style={{
                     background: isSelected ? meta.color : `${meta.color}20`,
                     border: `1px solid ${meta.color}40`,

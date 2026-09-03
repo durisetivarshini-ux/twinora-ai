@@ -6,9 +6,9 @@ import { fetchOpportunities, fetchBusinessOverview } from '../services/apiServic
 import { useDateRange } from '../context/DateRangeContext';
 
 const PRIORITY_COLORS = {
-  HIGH:   { dot: '#D92E2E', badge: 'badge-danger',  bar: '#D92E2E' },
+  HIGH: { dot: '#D92E2E', badge: 'badge-danger', bar: '#D92E2E' },
   MEDIUM: { dot: '#C97308', badge: 'badge-warning', bar: '#C97308' },
-  LOW:    { dot: '#05875F', badge: 'badge-success', bar: '#05875F' },
+  LOW: { dot: '#05875F', badge: 'badge-success', bar: '#05875F' },
 };
 
 /* Signal strength bars (3 bars, filled based on priority) */
@@ -88,7 +88,7 @@ export default function Opportunities() {
         <div>
           <h1 className="page-title">Opportunity Radar</h1>
           <p className="page-subtitle">
-            {opps.length} ranked strategies · <span className="text-[#05875F] font-semibold">₹{(total/1000).toFixed(1)}K</span> identified recovery potential
+            {opps.length} ranked strategies · <span className="text-[#05875F] font-semibold">₹{(total / 1000).toFixed(1)}K</span> identified recovery potential
           </p>
         </div>
         <button onClick={() => navigate('/simulate')} className="btn-primary shrink-0 gap-2">
@@ -121,7 +121,7 @@ export default function Opportunities() {
                       </div>
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5 mb-0.5">
-                          <span className="text-[10.5px] font-bold mono text-[#9BA3B0]">{String(i+1).padStart(2,'0')}</span>
+                          <span className="text-[10.5px] font-bold mono text-[#9BA3B0]">{String(i + 1).padStart(2, '0')}</span>
                           <span className="text-[10px] text-[#9BA3B0]">·</span>
                           <span className="text-[10.5px] font-semibold text-[#9BA3B0]">{opp.category}</span>
                         </div>
@@ -131,7 +131,7 @@ export default function Opportunities() {
                       </div>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-[13px] font-bold text-[#05875F]">+₹{((opp.potentialRevenue || 0)/1000).toFixed(1)}K</p>
+                      <p className="text-[13px] font-bold text-[#05875F]">+₹{((opp.potentialRevenue || 0) / 1000).toFixed(1)}K</p>
                       <p className="text-[10px] text-[#9BA3B0] mt-0.5">{opp.impact} priority</p>
                     </div>
                   </div>
@@ -170,9 +170,9 @@ export default function Opportunities() {
                 {/* Stats grid */}
                 <div className="grid grid-cols-2 gap-3 mb-5">
                   {[
-                    { label: 'Revenue potential', value: `+₹${((selected.potentialRevenue || 0)/1000).toFixed(1)}K` },
-                    { label: 'Target segment',    value: selected.targetCohort || 'Customer Accounts' },
-                    { label: 'Risk level',         value: selected.risk || 'Low' },
+                    { label: 'Revenue potential', value: `+₹${((selected.potentialRevenue || 0) / 1000).toFixed(1)}K` },
+                    { label: 'Target segment', value: selected.targetCohort || 'Customer Accounts' },
+                    { label: 'Risk level', value: selected.risk || 'Low' },
                     { label: 'Evidence confidence', value: `${selected.confidenceScore || 88}%` },
                   ].map(item => (
                     <div key={item.label} className="panel-deep-3 px-3 py-2.5">

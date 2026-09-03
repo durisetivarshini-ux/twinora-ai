@@ -26,11 +26,24 @@ if (fs.existsSync(envPath)) {
   });
 }
 
-const app = express();
-const PORT = process.env.PORT || 5000;
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
+import { createClient } from '@supabase/supabase-js';
 
-app.use(cors());
+const app = express();
+const PORT = process.env.PORT || 3000;
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
+const SUPABASE_URL = process.env.SUPABASE_URL || '';
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+
+export const supabaseServer = (SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY)
+  ? createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+      auth: { persistSession: false, autoRefreshToken: false }
+    })
+  : null;
+
+app.use(cors({
+  origin: (origin, callback) => callback(null, true),
+  credentials: true
+}));
 app.use(express.json({ limit: '10mb' }));
 
 // Auth Middleware: extracts authenticated user and merchant

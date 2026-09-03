@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { 
-  Sparkles, 
-  X, 
-  ArrowRight, 
-  Check, 
-  Layers, 
-  Activity, 
-  FlaskConical, 
-  Zap, 
+import {
+  Sparkles,
+  X,
+  ArrowRight,
+  Check,
+  Layers,
+  Activity,
+  FlaskConical,
+  Zap,
   ChevronRight,
   ShieldCheck
 } from 'lucide-react';
@@ -76,7 +76,7 @@ export default function ProductTourModal({ isOpen, onClose }) {
 
       {/* Modal Card */}
       <div className="relative w-full max-w-lg bg-white border border-[#E2E8F0] rounded-2xl shadow-elevated overflow-hidden z-10 animate-in zoom-in-95 duration-200">
-        
+
         {/* Header */}
         <div className="p-6 border-b border-[#E2E8F0] flex items-center justify-between bg-[#F8FAFC]">
           <div className="flex items-center gap-2.5">
@@ -84,7 +84,7 @@ export default function ProductTourModal({ isOpen, onClose }) {
             <span className="font-extrabold text-[14px] text-[#0F172A]">Twinora AI Product Tour</span>
           </div>
 
-          <button 
+          <button
             onClick={onClose}
             className="p-1 text-slate-400 hover:text-[#0F172A] rounded-lg transition-colors"
           >
@@ -104,7 +104,7 @@ export default function ProductTourModal({ isOpen, onClose }) {
           </div>
 
           <div className="flex items-start gap-4">
-            <div 
+            <div
               className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-sm"
               style={{ backgroundColor: `${stepData.color}15`, color: stepData.color }}
             >
@@ -132,11 +132,10 @@ export default function ProductTourModal({ isOpen, onClose }) {
                 <button
                   key={idx}
                   onClick={() => setCurrentStep(idx)}
-                  className={`h-2 rounded-full transition-all ${
-                    idx === currentStep
+                  className={`h-2 rounded-full transition-all ${idx === currentStep
                       ? 'w-6 bg-[#4F46E5]'
                       : 'w-2 bg-[#CBD5E1] hover:bg-[#94A3B8]'
-                  }`}
+                    }`}
                 />
               ))}
             </div>

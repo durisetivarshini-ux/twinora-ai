@@ -58,10 +58,10 @@ const TwinCore = ({ successStage }) => {
       </motion.div>
 
       {/* Floating Metrics */}
-      <FloatingLabel label="REVENUE" value="₹12.45L" top="10%" left="15%" delay={0.5} />
-      <FloatingLabel label="CUSTOMERS" value="1,240" top="75%" left="20%" delay={0.7} />
-      <FloatingLabel label="RETENTION" value="72.4%" top="20%" left="70%" delay={0.9} />
-      <FloatingLabel label="GROWTH" value="87 / 100" top="80%" left="65%" delay={1.1} />
+      <FloatingLabel label="REVENUE" value="₹8.42L" top="10%" left="15%" delay={0.5} />
+      <FloatingLabel label="CUSTOMERS" value="948" top="75%" left="20%" delay={0.7} />
+      <FloatingLabel label="RETENTION" value="34.0%" top="20%" left="70%" delay={0.9} />
+      <FloatingLabel label="GROWTH" value="82 / 100" top="80%" left="65%" delay={1.1} />
       <FloatingLabel label="SIGNALS" value="03" top="45%" left="85%" delay={1.3} />
     </div>
   );

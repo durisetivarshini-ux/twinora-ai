@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  User, 
-  Building2, 
-  Database, 
-  Sparkles, 
-  Bell, 
-  ShieldCheck, 
+import {
+  User,
+  Building2,
+  Database,
+  Sparkles,
+  Bell,
+  ShieldCheck,
   Palette,
   Upload,
   CheckCircle2,
@@ -25,13 +25,13 @@ import { useAuth } from '../context/AuthContext';
 import { fetchBusinessOverview, importCSVData } from '../services/apiService';
 
 const TABS = [
-  { id: 'profile',      label: 'Personal Account',  icon: User },
-  { id: 'business',     label: 'Business Profile',  icon: Building2 },
-  { id: 'data',         label: 'Data Connections',  icon: Database },
-  { id: 'ai',           label: 'AI & Intelligence', icon: Sparkles },
-  { id: 'notifications',label: 'Notifications',     icon: Bell },
-  { id: 'security',     label: 'Security & Access', icon: ShieldCheck },
-  { id: 'appearance',   label: 'Appearance',        icon: Palette },
+  { id: 'profile', label: 'Personal Account', icon: User },
+  { id: 'business', label: 'Business Profile', icon: Building2 },
+  { id: 'data', label: 'Data Connections', icon: Database },
+  { id: 'ai', label: 'AI & Intelligence', icon: Sparkles },
+  { id: 'notifications', label: 'Notifications', icon: Bell },
+  { id: 'security', label: 'Security & Access', icon: ShieldCheck },
+  { id: 'appearance', label: 'Appearance', icon: Palette },
 ];
 
 const SAMPLE_TEMPLATES = {
@@ -56,13 +56,13 @@ function Field({ label, value, onChange, type = 'text', disabled, placeholder })
   return (
     <div>
       <label className="section-label mb-1.5 block">{label}</label>
-      <input 
-        type={type} 
-        value={value || ''} 
-        onChange={e => onChange?.(e.target.value)} 
+      <input
+        type={type}
+        value={value || ''}
+        onChange={e => onChange?.(e.target.value)}
         disabled={disabled}
-        className="input" 
-        placeholder={placeholder} 
+        className="input"
+        placeholder={placeholder}
       />
     </div>
   );
@@ -106,7 +106,7 @@ export default function Settings() {
   useEffect(() => {
     fetchBusinessOverview('30d')
       .then(setOverview)
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   const handleSave = async () => {
@@ -117,7 +117,7 @@ export default function Settings() {
       }
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
-    } catch {} finally {
+    } catch { } finally {
       setSaving(false);
     }
   };
@@ -203,7 +203,7 @@ export default function Settings() {
 
   return (
     <div className="page-canvas space-y-5 max-w-[1000px] font-sans">
-      
+
       {/* Header */}
       <div className="fade-up flex items-start justify-between gap-4">
         <div>
@@ -213,7 +213,7 @@ export default function Settings() {
       </div>
 
       <div className="fade-up fade-up-delay-1 grid lg:grid-cols-[230px_1fr] gap-5">
-        
+
         {/* Left Tabs Nav */}
         <div className="panel p-2 h-fit space-y-0.5">
           {TABS.map(t => {
@@ -223,11 +223,10 @@ export default function Settings() {
               <button
                 key={t.id}
                 onClick={() => setTab(t.id)}
-                className={`w-full flex items-center gap-2.5 px-3 h-9 rounded-xl text-[12.5px] font-semibold transition-all ${
-                  isActive
+                className={`w-full flex items-center gap-2.5 px-3 h-9 rounded-xl text-[12.5px] font-semibold transition-all ${isActive
                     ? 'bg-[#080E1C] text-[#12B5C6]'
                     : 'text-[#5C6370] hover:bg-[#F8F9FC] hover:text-[#0E1117]'
-                }`}
+                  }`}
               >
                 <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-[#12B5C6]' : 'text-[#9BA3B0]'}`} />
                 <span>{t.label}</span>
@@ -239,11 +238,11 @@ export default function Settings() {
         {/* Tab Content Panes */}
         <AnimatePresence mode="wait">
           <motion.div key={tab} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.12 }}>
-            
+
             {/* DATA TAB */}
             {tab === 'data' && (
               <div className="space-y-5">
-                
+
                 {/* 1. Live Data Connections Health Center */}
                 <div className="panel p-6 space-y-4">
                   <div className="flex items-center justify-between">
@@ -300,9 +299,9 @@ export default function Settings() {
                   <div className="flex flex-wrap gap-2">
                     {[
                       { id: 'customers', label: 'Customers CSV' },
-                      { id: 'orders',    label: 'Orders CSV' },
-                      { id: 'products',  label: 'Products CSV' },
-                      { id: 'payments',  label: 'Payments CSV' },
+                      { id: 'orders', label: 'Orders CSV' },
+                      { id: 'products', label: 'Products CSV' },
+                      { id: 'payments', label: 'Payments CSV' },
                     ].map(t => (
                       <button
                         key={t.id}
@@ -311,11 +310,10 @@ export default function Settings() {
                           setCsvText('');
                           setValidationReport(null);
                         }}
-                        className={`px-3 py-1.5 rounded-lg text-[12px] font-bold transition-all border ${
-                          csvType === t.id
+                        className={`px-3 py-1.5 rounded-lg text-[12px] font-bold transition-all border ${csvType === t.id
                             ? 'bg-[#4F52E8] text-white border-[#4F52E8] shadow-xs'
                             : 'border-[#E4E7ED] text-[#5C6370] bg-white hover:bg-[#F8F9FC]'
-                        }`}
+                          }`}
                       >
                         {t.label}
                       </button>
@@ -346,11 +344,10 @@ export default function Settings() {
 
                   {/* Validation Report Alert */}
                   {validationReport && (
-                    <div className={`p-4 rounded-xl text-[12px] ${
-                      validationReport.success
+                    <div className={`p-4 rounded-xl text-[12px] ${validationReport.success
                         ? 'bg-[#EDFAF5] border border-[#BBF7D0] text-[#05875F]'
                         : 'bg-[#FEF1F1] border border-[#FECACA] text-[#D92E2E]'
-                    }`}>
+                      }`}>
                       {validationReport.success ? (
                         <div className="flex items-start gap-2.5">
                           <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />

@@ -9,14 +9,14 @@ import { getTwinNodeDetails } from '../services/aiService';
 
 /* ── EDGES (from→to) ── */
 const EDGES = [
-  { from: 'revenue',   to: 'customers', strong: true },
+  { from: 'revenue', to: 'customers', strong: true },
   { from: 'customers', to: 'retention' },
   { from: 'retention', to: 'growth' },
-  { from: 'growth',    to: 'payments' },
-  { from: 'payments',  to: 'revenue' },
-  { from: 'revenue',   to: 'products',  weak: true },
+  { from: 'growth', to: 'payments' },
+  { from: 'payments', to: 'revenue' },
+  { from: 'revenue', to: 'products', weak: true },
   { from: 'customers', to: 'products' },
-  { from: 'products',  to: 'retention', weak: true },
+  { from: 'products', to: 'retention', weak: true },
 ];
 
 function buildPath(a, b) {
@@ -66,12 +66,12 @@ export default function DigitalTwin() {
   const revChange = overview ? overview.revenueChangePct : -19.8;
 
   const nodes = [
-    { id: 'revenue',   label: 'Revenue',   value: `₹${totalRevL}L`, delta: `${revChange > 0 ? '+' : ''}${revChange}%`,   neg: revChange < 0,  r: 52, cx: 380, cy: 200, color: revChange < 0 ? '#C97308' : '#05875F' },
+    { id: 'revenue', label: 'Revenue', value: `₹${totalRevL}L`, delta: `${revChange > 0 ? '+' : ''}${revChange}%`, neg: revChange < 0, r: 52, cx: 380, cy: 200, color: revChange < 0 ? '#C97308' : '#05875F' },
     { id: 'customers', label: 'Customers', value: overview ? `${overview.uniqueCustomersCount.toLocaleString('en-IN')}` : '948', delta: `+${overview?.activeDormantAccounts ? overview.activeDormantAccounts * 2 : 48}`, neg: false, r: 44, cx: 620, cy: 145, color: '#4F52E8' },
-    { id: 'products',  label: 'Products',  value: '64 SKUs', delta: `AOV ₹${overview?.aov || 864}`, neg: false, r: 38, cx: 680, cy: 310, color: '#4F52E8' },
+    { id: 'products', label: 'Products', value: '64 SKUs', delta: `AOV ₹${overview?.aov || 864}`, neg: false, r: 38, cx: 680, cy: 310, color: '#4F52E8' },
     { id: 'retention', label: 'Retention', value: `${overview?.repeatRate || 34}%`, delta: '−2.8%', neg: true, r: 40, cx: 490, cy: 350, color: '#D92E2E' },
-    { id: 'growth',    label: 'Growth',    value: `${overview?.growthScore || 82}/100`, delta: '+3 pts', neg: false, r: 36, cx: 220, cy: 310, color: '#05875F' },
-    { id: 'payments',  label: 'Payments',  value: `${overview?.paymentHealthRate || 99.4}%`, delta: '14ms', neg: false, r: 30, cx: 180, cy: 155, color: '#05875F' },
+    { id: 'growth', label: 'Growth', value: `${overview?.growthScore || 82}/100`, delta: '+3 pts', neg: false, r: 36, cx: 220, cy: 310, color: '#05875F' },
+    { id: 'payments', label: 'Payments', value: `${overview?.paymentHealthRate || 99.4}%`, delta: '14ms', neg: false, r: 30, cx: 180, cy: 155, color: '#05875F' },
   ];
 
   const active = nodes.find(n => n.id === activeId) || nodes[0];

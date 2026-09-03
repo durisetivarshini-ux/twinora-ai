@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  X, 
-  Send, 
-  Sparkles, 
+import {
+  X,
+  Send,
+  Sparkles,
   ArrowRight,
   ChevronDown,
   ChevronUp,
@@ -200,11 +200,10 @@ export default function AICopilotDrawer({ isOpen, onClose }) {
               <button
                 key={chip.id}
                 onClick={() => setDateRange(chip.id)}
-                className={`px-2.5 py-1 rounded-md font-semibold transition-all shrink-0 ${
-                  dateRange === chip.id
+                className={`px-2.5 py-1 rounded-md font-semibold transition-all shrink-0 ${dateRange === chip.id
                     ? 'bg-[#080E1C] text-[#12B5C6] border border-[#1F3050]'
                     : 'bg-[#F8F9FC] text-[#5C6370] hover:text-[#0E1117] border border-[#E4E7ED]'
-                }`}
+                  }`}
               >
                 {chip.label}
               </button>

@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
-  Search, 
-  Bell, 
-  Sparkles, 
-  Menu, 
-  HelpCircle, 
-  FileText, 
-  CheckCircle2, 
-  Clock, 
-  AlertCircle, 
+import {
+  Search,
+  Bell,
+  Sparkles,
+  Menu,
+  HelpCircle,
+  FileText,
+  CheckCircle2,
+  Clock,
+  AlertCircle,
   Database,
   Calendar,
   ChevronDown
@@ -37,7 +37,7 @@ export default function Topbar({
   useEffect(() => {
     fetchBusinessOverview(dateRange)
       .then(setOverview)
-      .catch(() => {});
+      .catch(() => { });
   }, [dateRange]);
 
   useEffect(() => {
@@ -83,11 +83,10 @@ export default function Topbar({
               <button
                 key={r.id}
                 onClick={() => setDateRange(r.id)}
-                className={`px-2 py-1 rounded-md transition-all ${
-                  dateRange === r.id
+                className={`px-2 py-1 rounded-md transition-all ${dateRange === r.id
                     ? 'bg-white text-[#4F52E8] shadow-xs'
                     : 'text-[#64748B] hover:text-[#0F172A]'
-                }`}
+                  }`}
                 title={r.fullLabel}
               >
                 {r.label}

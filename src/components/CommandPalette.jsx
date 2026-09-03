@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
-  Search, 
-  FlaskConical, 
-  Radar, 
-  Users, 
-  Bot, 
-  Sparkles, 
-  Network, 
-  HelpCircle, 
-  Zap, 
+import {
+  Search,
+  FlaskConical,
+  Radar,
+  Users,
+  Bot,
+  Sparkles,
+  Network,
+  HelpCircle,
+  Zap,
   BarChart3,
   X,
   ArrowRight,
@@ -106,7 +106,7 @@ export default function CommandPalette({ isOpen, onClose, onOpenCopilot, onOpenA
 
       {/* Palette Box */}
       <div className="relative w-full max-w-2xl bg-white border border-[#E2E8F0] rounded-2xl shadow-[0_25px_60px_rgba(15,23,42,0.2)] overflow-hidden z-10 animate-in fade-in zoom-in-95 duration-150">
-        
+
         {/* Search Header */}
         <div className="flex items-center px-4 border-b border-[#E2E8F0] bg-white">
           <Search className="w-4.5 h-4.5 text-[#4F52E8] mr-3 shrink-0" />
@@ -134,14 +134,12 @@ export default function CommandPalette({ isOpen, onClose, onOpenCopilot, onOpenA
                   key={cmd.id}
                   onClick={cmd.action}
                   onMouseEnter={() => setSelectedIndex(idx)}
-                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left transition-all ${
-                    isSelected ? 'bg-[#EEF0FF] text-[#4F52E8]' : 'text-[#374151] hover:bg-[#F8F9FC]'
-                  }`}
+                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left transition-all ${isSelected ? 'bg-[#EEF0FF] text-[#4F52E8]' : 'text-[#374151] hover:bg-[#F8F9FC]'
+                    }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className={`p-2 rounded-lg shrink-0 transition-colors ${
-                      isSelected ? 'bg-white text-[#4F52E8] shadow-xs' : 'bg-[#F4F5F9] text-[#9BA3B0]'
-                    }`}>
+                    <div className={`p-2 rounded-lg shrink-0 transition-colors ${isSelected ? 'bg-white text-[#4F52E8] shadow-xs' : 'bg-[#F4F5F9] text-[#9BA3B0]'
+                      }`}>
                       <Icon className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
@@ -153,9 +151,8 @@ export default function CommandPalette({ isOpen, onClose, onOpenCopilot, onOpenA
                   </div>
                   <div className="flex items-center gap-2 shrink-0 ml-2">
                     {cmd.badge && (
-                      <span className={`px-2 py-0.5 rounded-md text-[10px] font-semibold border ${
-                        isSelected ? 'bg-white text-[#4F52E8] border-[#C7CAFF]' : 'bg-[#F8F9FC] text-[#6B7280] border-[#E4E7ED]'
-                      }`}>
+                      <span className={`px-2 py-0.5 rounded-md text-[10px] font-semibold border ${isSelected ? 'bg-white text-[#4F52E8] border-[#C7CAFF]' : 'bg-[#F8F9FC] text-[#6B7280] border-[#E4E7ED]'
+                        }`}>
                         {cmd.badge}
                       </span>
                     )}

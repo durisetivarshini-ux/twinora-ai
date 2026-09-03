@@ -113,7 +113,7 @@ function generateSeededData() {
     const fn = firstNames[i % firstNames.length];
     const ln = lastNames[(i * 3) % lastNames.length];
     const custId = `cst-nova-${String(i).padStart(3, '0')}`;
-    
+
     // Cohort segmentation rule:
     // 1-20: VIP Champions (Active, high spend)
     // 21-50: Active Loyalists (Regular buyers)
@@ -177,7 +177,7 @@ function generateSeededData() {
       const orderDaysAgo = daysAgoLastOrder + o * 28 + (o % 7);
       const orderDate = new Date(now.getTime() - orderDaysAgo * 24 * 60 * 60 * 1000).toISOString();
       const orderId = `ord-nova-${custId.slice(9)}-${o + 1}`;
-      
+
       const p1 = products[o % 6];
       const p2 = products[(o + 1) % 6];
       const items = [

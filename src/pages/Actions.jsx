@@ -30,11 +30,11 @@ import {
   Radio
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { 
-  fetchActionPlanDetails, 
-  approveActionPlan, 
-  updateActionPlan, 
-  fetchBusinessOverview 
+import {
+  fetchActionPlanDetails,
+  approveActionPlan,
+  updateActionPlan,
+  fetchBusinessOverview
 } from '../services/apiService';
 import { useAuth } from '../context/AuthContext';
 
@@ -50,7 +50,7 @@ const TIMELINE_STAGES = [
 export default function Actions() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  
+
   // Role & RBAC State
   const [currentRole, setCurrentRole] = useState(user?.role || 'Owner');
 
@@ -110,7 +110,7 @@ export default function Actions() {
     try {
       const res = await approveActionPlan(plan?.id || 'AP-904');
       if (res?.plan) setPlan(res.plan);
-    } catch {}
+    } catch { }
 
     setExecuting(false);
     setIsApproved(true);
@@ -131,7 +131,7 @@ export default function Actions() {
         setPlan(res.plan);
       }
       setEditModalOpen(false);
-    } catch {} finally {
+    } catch { } finally {
       setSavingEdit(false);
     }
   };
@@ -161,18 +161,17 @@ export default function Actions() {
 
   return (
     <div className="page-canvas space-y-5 max-w-[1140px] font-sans pb-16">
-      
+
       {/* ── HEADER & COMPACT METADATA STRIP ── */}
       <div className="fade-up space-y-3">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="badge badge-brand mono text-[10px]">{plan.id}</span>
-              <span className={`badge ${
-                isApproved 
-                  ? 'badge-success' 
+              <span className={`badge ${isApproved
+                  ? 'badge-success'
                   : 'badge-warning'
-              }`}>
+                }`}>
                 {currentStatusLabel.replace('_', ' ')}
               </span>
               <span className="badge badge-neutral text-[10px]">Mode: {plan.executionMode || 'READY'}</span>
@@ -209,11 +208,10 @@ export default function Actions() {
                 <button
                   key={r}
                   onClick={() => setCurrentRole(r)}
-                  className={`px-2 py-0.5 rounded-md font-bold transition-all ${
-                    currentRole === r
+                  className={`px-2 py-0.5 rounded-md font-bold transition-all ${currentRole === r
                       ? 'bg-[#080E1C] text-[#12B5C6]'
                       : 'text-[#5C6370] hover:text-[#0E1117]'
-                  }`}
+                    }`}
                 >
                   {r}
                 </button>
@@ -266,12 +264,12 @@ export default function Actions() {
 
       {/* ── TWO-COLUMN WORKSPACE LAYOUT ── */}
       <div className="grid lg:grid-cols-[1fr_360px] gap-5 items-start">
-        
+
         {/* ============================================================ */}
         {/* LEFT COLUMN (~65%): Timeline, Strategy, Evidence, Pipeline   */}
         {/* ============================================================ */}
         <div className="space-y-5">
-          
+
           {/* 1. Interactive State Machine Execution Timeline */}
           <div className="panel p-5 space-y-3">
             <div className="flex items-center justify-between pb-2 border-b border-[#E4E7ED]">
@@ -289,13 +287,12 @@ export default function Actions() {
                       onClick={() => setSelectedTimelineStage(stg)}
                       className="flex flex-col items-center min-w-[76px] text-center group cursor-pointer"
                     >
-                      <div className={`w-7 h-7 rounded-full flex items-center justify-center mb-1.5 transition-all ${
-                        isPast
+                      <div className={`w-7 h-7 rounded-full flex items-center justify-center mb-1.5 transition-all ${isPast
                           ? 'bg-[#05875F] text-white shadow-xs'
                           : isCurrent
                             ? 'bg-[#4F52E8] text-white ring-4 ring-[#4F52E8]/15 shadow-sm'
                             : 'bg-[#F0F2F7] text-[#9BA3B0] group-hover:bg-[#E4E7ED]'
-                      }`}>
+                        }`}>
                         {isPast ? (
                           <CheckCircle2 className="w-3.5 h-3.5" />
                         ) : isCurrent ? (
@@ -304,17 +301,15 @@ export default function Actions() {
                           <span className="w-2 h-2 rounded-full bg-[#CDD1DC]" />
                         )}
                       </div>
-                      <p className={`text-[11px] font-bold ${
-                        isPast ? 'text-[#05875F]' : isCurrent ? 'text-[#4F52E8]' : 'text-[#9BA3B0]'
-                      }`}>
+                      <p className={`text-[11px] font-bold ${isPast ? 'text-[#05875F]' : isCurrent ? 'text-[#4F52E8]' : 'text-[#9BA3B0]'
+                        }`}>
                         {stg.label}
                       </p>
                       <span className="text-[9.5px] text-[#9BA3B0] mt-0.5 truncate max-w-[70px]">{stg.actor}</span>
                     </button>
                     {i < TIMELINE_STAGES.length - 1 && (
-                      <div className={`flex-1 h-0.5 mx-1.5 rounded-full transition-all ${
-                        isPast ? 'bg-[#05875F]' : 'bg-[#E4E7ED]'
-                      }`} />
+                      <div className={`flex-1 h-0.5 mx-1.5 rounded-full transition-all ${isPast ? 'bg-[#05875F]' : 'bg-[#E4E7ED]'
+                        }`} />
                     )}
                   </React.Fragment>
                 );
@@ -440,22 +435,20 @@ export default function Actions() {
                   <button
                     key={step.id || step.name}
                     onClick={() => setSelectedAgentStep(step)}
-                    className={`w-full flex items-center justify-between p-3.5 rounded-xl border text-left transition-all group ${
-                      isStepActive
+                    className={`w-full flex items-center justify-between p-3.5 rounded-xl border text-left transition-all group ${isStepActive
                         ? 'bg-[#EEF0FF] border-[#4F52E8] shadow-xs'
                         : isStepCompleted
                           ? 'bg-[#F8FDFB] border-[#D1FAE5] hover:border-[#05875F]'
                           : 'bg-[#F8F9FC] border-[#E4E7ED] hover:border-[#D4D9E3]'
-                    }`}
+                      }`}
                   >
                     <div className="flex items-center gap-3.5 min-w-0">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
-                        isStepActive
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${isStepActive
                           ? 'bg-[#4F52E8] text-white'
                           : isStepCompleted
                             ? 'bg-[#05875F] text-white'
                             : 'bg-[#E4E7ED] text-[#9BA3B0]'
-                      }`}>
+                        }`}>
                         {isStepActive ? (
                           <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                         ) : isStepCompleted ? (
@@ -521,7 +514,7 @@ export default function Actions() {
         {/* RIGHT COLUMN (~35%): Sticky Decision Intelligence & Approval */}
         {/* ============================================================ */}
         <div className="space-y-4 lg:sticky lg:top-20">
-          
+
           {/* Active Live Execution Intelligence Zone (Deep Navy Mode when running) */}
           {executing ? (
             <motion.div
@@ -548,7 +541,7 @@ export default function Actions() {
               </div>
 
               <div className="w-full bg-[#1F3050] h-1.5 rounded-full overflow-hidden">
-                <div 
+                <div
                   className="bg-[#12B5C6] h-full transition-all duration-300"
                   style={{ width: `${((executionStage + 1) / 4) * 100}%` }}
                 />
@@ -663,9 +656,8 @@ export default function Actions() {
                 <button
                   onClick={() => setConfirmModalOpen(true)}
                   disabled={!canApprove || executing}
-                  className={`btn-primary w-full !h-11 text-[13px] font-bold gap-2 shadow-md shadow-[#4F52E8]/20 ${
-                    !canApprove ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
+                  className={`btn-primary w-full !h-11 text-[13px] font-bold gap-2 shadow-md shadow-[#4F52E8]/20 ${!canApprove ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
                 >
                   {!canApprove ? (
                     <>

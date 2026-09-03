@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
-  X, 
-  Sparkles, 
-  ArrowRight, 
-  CheckCircle2, 
-  FlaskConical, 
+import {
+  X,
+  Sparkles,
+  ArrowRight,
+  CheckCircle2,
+  FlaskConical,
   TrendingUp,
   Zap
 } from 'lucide-react';

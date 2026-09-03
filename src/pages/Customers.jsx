@@ -95,11 +95,10 @@ export default function Customers() {
                 {/* Cohort column */}
                 <button
                   onClick={() => setSelected(cohort.id)}
-                  className={`w-full rounded-2xl p-4 text-center transition-all duration-200 border-2 ${
-                    isSelected
+                  className={`w-full rounded-2xl p-4 text-center transition-all duration-200 border-2 ${isSelected
                       ? 'border-current shadow-lg scale-[1.02]'
                       : 'border-transparent hover:border-[#E4E7ED] hover:scale-[1.01]'
-                  }`}
+                    }`}
                   style={{
                     background: isSelected ? cohort.color : `${cohort.color}08`,
                     borderColor: isSelected ? cohort.color : undefined,
