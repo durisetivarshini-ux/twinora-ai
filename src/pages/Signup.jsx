@@ -4,6 +4,7 @@ import { User, Mail, Lock, Building2, Sparkles, Eye, EyeOff, CheckCircle2 } from
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import { apiService, signupUser } from '../services/apiService';
+import TwinoraLogo from '../components/TwinoraLogo';
 
 const FloatingLabel = ({ label, value, top, left, delay }) => (
   <motion.div
