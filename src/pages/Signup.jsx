@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { User, Mail, Lock, Building2, Sparkles, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import TwinoraLogo from '../components/TwinoraLogo';
 import { useAuth } from '../context/AuthContext';
+import { apiService, signupUser } from '../services/apiService';
 
 const FloatingLabel = ({ label, value, top, left, delay }) => (
   <motion.div
@@ -124,11 +124,14 @@ export default function Signup() {
       if (typeof signup === 'function') {
         await signup(formData.fullName, formData.businessName, formData.email, formData.password);
       } else {
-        const res = await apiService.signup(formData.fullName, formData.businessName, formData.email, formData.password);
+        const signupFn = apiService?.signup || signupUser;
+        const res = await signupFn(formData.fullName, formData.businessName, formData.email, formData.password);
         if (res?.token) {
           localStorage.setItem('twinora_token', res.token);
           if (res.user) localStorage.setItem('twinora_user', JSON.stringify(res.user));
           if (res.merchant) localStorage.setItem('twinora_merchant', JSON.stringify(res.merchant));
+        } else if (res?.error) {
+          throw new Error(res.error);
         }
       }
       

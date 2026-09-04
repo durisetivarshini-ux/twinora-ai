@@ -397,6 +397,7 @@ export const fetchPriorityPlans = fetchPriorityPlan;
 
 export const apiService = {
   login: loginUser,
+  signup: signupUser,
   register: registerUser,
   getProfile: getUserProfile,
   getMerchantProfile,

@@ -244,8 +244,9 @@ export const AuthProvider = ({ children }) => {
         }
       }
 
-      // Backend fallback signup
-      const res = await apiService.signup(fullName, businessName, email, password);
+      // Backend signup
+      const signupFn = apiService.signup || apiService.register;
+      const res = await signupFn(fullName, businessName, email, password);
       if (res.token) {
         localStorage.setItem('twinora_token', res.token);
         if (res.user) {
